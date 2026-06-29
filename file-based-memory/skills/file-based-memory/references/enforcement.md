@@ -14,7 +14,9 @@ when the about-to-run command is a commit/push.
 It encodes the written rules mechanically:
 
 - **Per-entry caps** on `project-memory/*` — 5–10 lines / a char ceiling per `## `
-  entry, so an entry can't grow into a re-statement of a spec.
+  entry, so an entry can't grow into a re-statement of a spec. A `## [FOLDED]`
+  entry indexes over a closed cluster, so it gets the larger folded cap — see
+  [supersede-trail.md](supersede-trail.md#folding-a-closed-cluster-folded).
 - **Router line cap** on `AGENTS.md` — one route = one line (trigger → destination +
   status), so the index can't absorb narrative.
 - **Whole-file budgets** — catch slow creep that per-entry checks miss.

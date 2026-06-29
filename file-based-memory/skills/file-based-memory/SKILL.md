@@ -92,6 +92,12 @@ a human session recap. Full protocol in
    - `experiments.md`: a baseline/eval run, a regression, a calibration change
 3. **Obey size discipline** (see below) — link to docs, don't compress them in.
 4. **Supersede, don't delete** stale entries.
+5. **Verify cold-resume sufficiency** before declaring done: from
+   `CURRENT_STATUS_AND_NEXT_STEPS.md` + `AGENTS.md`, a fresh agent must be able to
+   identify the next action, target files/functions, read-first specs, prior
+   artifacts, out-of-scope work, and sanity-check commands / numeric claims.
+6. **Re-check live numerics** (test counts, commit hashes, verdicts) or mark them
+   explicitly as not re-verified.
 
 The `/file-based-memory:save-status` command runs this protocol on demand.
 

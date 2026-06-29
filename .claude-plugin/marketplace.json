@@ -7,7 +7,7 @@
     {
       "name": "file-based-memory",
       "source": "./file-based-memory",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Persistent, resumable file-based memory: routed entrypoint, operational dashboard, four-layer durable memory, size discipline, supersede-don't-delete history, auto-checkpoint cadence hook, and the /bootstrap + /save-status commands. Survives context resets and /clear."
     },
     {

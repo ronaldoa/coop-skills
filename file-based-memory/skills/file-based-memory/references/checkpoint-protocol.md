@@ -37,11 +37,84 @@ don't touch a file just to bump a timestamp.
 - **Supersede, don't delete** stale entries. See [supersede-trail.md](supersede-trail.md).
 - **Lead with the rule, then `Why:` and `How to apply:`** for durable entries.
 
-## Step 4 — report
+## Step 4 — preserve the trail
+
+`CURRENT_STATUS_AND_NEXT_STEPS.md` is replaceable operational state. Rewrite its
+current-state and next-action sections so a cold session can resume quickly; link
+to closeout docs, `project-memory/*`, diagnostic artifacts, or git history for
+older detail.
+
+For `project-memory/*`, when superseding a prior entry, do not silently delete it.
+Mark it `SUPERSEDED` with an absolute date, the trigger, and a forward pointer to
+the replacement. Future sessions need to reconstruct why the decision changed.
+
+When relaxing an architectural invariant, leave the new rule in `architecture.md`
+and record the reopening / rejection rationale in `decisions.md` if it is likely
+to be re-argued.
+
+## Step 5 — confirm before writing
+
+Before editing, briefly summarize to the user:
+
+- Which files you will update.
+- One bullet per file: what entry you will add or change.
+- Anything borderline, such as a decision that might not be load-bearing enough
+  for durable memory.
+
+Wait for confirmation unless the user explicitly asks to proceed without it, asks
+for a direct edit, or asks to commit / push as part of the same request.
+
+## Step 6 — verify the writes
+
+After writing, run `git diff` on the updated files and confirm:
+
+- No accidental deletions.
+- No duplicated content between `CURRENT_STATUS_AND_NEXT_STEPS.md` and
+  `project-memory/*`.
+- Each new durable entry has the fields its file requires (`Why:` /
+  `How to apply:` / evidence pointer, as applicable).
+- Stale related docs or router rows found in the sweep were updated, or explicitly
+  left unchanged for a stated reason.
+
+## Step 7 — cold-resume sufficiency check
+
+The protocol's promise is that a fresh session can continue from the resume
+entrypoints. Audit `CURRENT_STATUS_AND_NEXT_STEPS.md` and `AGENTS.md` as if you had
+zero prior context. For the documented next code action, answer these six
+questions using only those two files, allowing one-hop reads to explicitly named
+spec sections, memory entries, artifacts, or code modules:
+
+1. **What is the next action?**
+2. **Which code files / functions should be touched?**
+3. **Which spec sections should be read?**
+4. **What prior phase / module / artifact should be consumed?**
+5. **What is deferred or out of scope?**
+6. **Which sanity-check commands, commit hashes, test counts, or numeric verdicts
+   need current verification?**
+
+For each answer, note where it lives. If any answer is missing or requires a
+multi-hop chase, fix the checkpoint before declaring it complete.
+
+Any numeric claim in the next-session entry must be checked against live state:
+
+- If it cites a test count, run the command and confirm the count.
+- If it cites a commit hash, confirm it is reachable from `HEAD`.
+- If it cites a verdict or artifact value, reopen the artifact and confirm it
+  still says the same thing.
+
+If re-running an expensive command is not reasonable, mark the numeric claim as
+not re-verified and explain the risk in the final report. Do not leave stale
+numbers looking current.
+
+## Step 8 — report
 
 State, explicitly: which files were updated, which were swept and intentionally left
 unchanged, and whether anything is still open for the next session. That report is
 itself part of the cold-start handoff.
+
+Include the cold-resume sufficiency verdict: which of the six questions are
+answered directly, which require a named one-hop read, which numeric claims were
+checked, and any resume gap fixed during the checkpoint.
 
 ## What does NOT go here
 

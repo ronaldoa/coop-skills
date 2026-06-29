@@ -21,8 +21,11 @@ Local test (no install):
 claude --plugin-dir ./file-based-memory
 ```
 
-Self-use across all your repos (auto-load): drop this directory under
-`~/.claude/skills/` so it loads as `file-based-memory@skills-dir`.
+Self-use across repos: install or load the **plugin root directory** (the directory
+that contains `.claude-plugin/`, `commands/`, `hooks/`, and `skills/`). Do not copy
+only `skills/file-based-memory/` if you expect `/file-based-memory:*` commands or
+hooks to work; the skill subdirectory by itself only carries the skill instructions
+and templates.
 
 Validate before sharing:
 
