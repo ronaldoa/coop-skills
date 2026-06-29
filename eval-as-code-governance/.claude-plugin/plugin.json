@@ -1,0 +1,9 @@
+{
+  "name": "eval-as-code-governance",
+  "description": "Govern a retrieval / ML eval suite as first-class code: decouple gold from the corpus surface (assert behavior via a predicate over stable semantic keys, not doc-ID + rank), then an L1–L8 design checklist, a deterministic failure→action loop, four coverage detectors, the looseness-symmetry guardrails, and the two-lane (component vs production-faithful) rule. Supports design/migrate and audit modes.",
+  "version": "0.1.0",
+  "author": {
+    "name": "ronaldoa"
+  },
+  "license": "MIT"
+}

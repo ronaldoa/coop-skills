@@ -1,0 +1,54 @@
+# AGENTS.md
+
+Shared instructions for any AI agent working on this repository (Claude Code, Codex
+CLI, Cursor, etc.). Tool-specific overlays live in their own files (e.g. `CLAUDE.md`
+for Claude Code). This file **routes**; it does not store truth — truth lives in the
+code, `docs/`, and `project-memory/`.
+
+## Project Overview
+
+<!-- TODO: 2–4 sentences. What is this system, in plain terms? -->
+
+## Repository map
+
+One-line orientation to the top-level layout — scan before exploring.
+
+| Path | What |
+|---|---|
+| <!-- TODO `src/` --> | <!-- TODO one-line description --> |
+| `docs/` | normative design specs (routed by `## Design Specs` below) |
+| `project-memory/` | the *why* behind decisions / architecture / experiments |
+
+## Session Bootstrap
+
+On any new conversation, read in this order before acting:
+
+1. `CURRENT_STATUS_AND_NEXT_STEPS.md` — operational state (what's active, blockers,
+   exact next commands). Always.
+2. `project-memory/decisions.md` — only if the task involves an architectural /
+   threshold / scope choice.
+3. `project-memory/architecture.md` — only if touching invariants.
+4. `project-memory/experiments.md` — only if running or interpreting evals.
+
+See `project-memory/README.md` for the four-layer model and the size-discipline
+rules (5–10 line cap per entry; link to docs instead of compressing them).
+
+## Commands
+
+<!-- TODO: the handful of commands an agent actually needs (build / test / run / lint). -->
+
+## Design Specs (doc router)
+
+<!-- One route per line: trigger → doc path + STATUS. Keep each to one line;
+     push narrative into the doc it points at. -->
+
+| Read when... | Doc | Status |
+|---|---|---|
+| <!-- TODO --> | <!-- docs/... --> | <!-- DRAFT / RATIFIED / ARCHIVED --> |
+
+## Maintenance rules
+
+- Router rows stay one line (trigger → destination + status). Narrative goes in the
+  destination, not here.
+- Update this file when a route's destination or status changes — an index that
+  drifts from truth misleads.

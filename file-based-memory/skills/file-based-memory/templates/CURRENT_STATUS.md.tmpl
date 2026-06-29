@@ -1,0 +1,36 @@
+# CURRENT_STATUS_AND_NEXT_STEPS.md
+
+Operational dashboard. **Replaceable, not append-only** — it holds *current* state,
+so overwrite freely. Audience: the next session, with zero conversational context.
+Every line must be actionable from a cold start.
+
+## §0 — NEXT-SESSION ENTRY POINT
+
+<!-- The single most important section. A cold reader starts HERE. -->
+
+- **Active work item:** <!-- TODO what is being worked on right now -->
+- **Status:** <!-- in progress / blocked / ready to verify -->
+- **Next concrete commands:**
+  ```bash
+  # TODO: the exact commands to run next, copy-pasteable
+  ```
+- **Blockers / open questions:** <!-- TODO, or "none" -->
+
+## Recently landed
+
+<!-- A few bullets of what changed last session that the next reader should know.
+     Concrete: paths, commands, numbers. Not "made progress". -->
+
+- <!-- TODO -->
+
+## Known rough edges / parked
+
+<!-- Things deliberately deferred, with enough context to pick them back up. -->
+
+- <!-- TODO, or "none" -->
+
+---
+
+*This file is the operational layer of the four-layer memory model. The durable
+"why" lives in `project-memory/`; see `project-memory/README.md`. Checkpoint with
+`/file-based-memory:save-status` (or your tool's equivalent) at session end.*

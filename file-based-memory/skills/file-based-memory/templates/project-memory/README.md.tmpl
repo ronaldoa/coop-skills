@@ -1,0 +1,46 @@
+# project-memory/
+
+Persistent engineering memory for this repository. Four layers, each with a distinct
+decay rate and audience.
+
+| File | Decay | Audience | Purpose |
+|------|-------|----------|---------|
+| `../CURRENT_STATUS_AND_NEXT_STEPS.md` | session | "me, next session" | what's active, blockers, exact next commands |
+| `architecture.md` | quarters | "anyone touching the system" | invariants, what NOT to change, structural shape |
+| `decisions.md` | indefinite | "future me / anyone proposing change" | rejected approaches with reasons; non-obvious tradeoffs |
+| `experiments.md` | indefinite | "anyone reading eval / regression results" | baselines, calibration history, measurement runs |
+
+## Reading order on session start
+
+1. `../CURRENT_STATUS_AND_NEXT_STEPS.md` — what's active right now.
+2. `decisions.md` — only if proposing an architectural / threshold / scope change.
+3. `architecture.md` — only if touching invariants.
+4. `experiments.md` — only if running or interpreting evals.
+
+## Writing rules
+
+- **Resume-ready, not human summary.** Concrete file paths, exact commands, numeric
+  results.
+- **Append, then restructure.** New entries append; restructure (and *supersede*,
+  don't silently delete) when entries become stale or duplicative.
+- **Lead with the rule, then `Why:` and `How to apply:`.**
+- **Don't duplicate the dashboard.** That file is operational ground truth; these
+  three are the things it would lose if rewritten.
+
+## Size discipline — index + anti-pitfall summary, not compressed docs
+
+**Per-entry length cap: 5–10 lines.** More than that means you're rewriting a spec —
+write the conclusion + a link to the canonical doc instead.
+
+| File | Admit only if... |
+|------|------------------|
+| `architecture.md` | forgetting this would lead to a *wrong code change*. |
+| `decisions.md` | the question is *likely to be re-argued* AND a reason for rejection is recorded with measurement / incident. |
+| `experiments.md` | the number affects a *threshold / baseline / closure* judgment. |
+
+If the spec moves, the spec moves. Memory points at it.
+
+## Updating
+
+Use the checkpoint protocol (`/file-based-memory:save-status`) at session end to
+checkpoint across all four files.

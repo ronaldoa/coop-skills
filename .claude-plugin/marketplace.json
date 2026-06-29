@@ -1,0 +1,26 @@
+{
+  "name": "coop-skills",
+  "owner": {
+    "name": "ronaldoa"
+  },
+  "plugins": [
+    {
+      "name": "file-based-memory",
+      "source": "./file-based-memory",
+      "version": "0.2.0",
+      "description": "Persistent, resumable file-based memory: routed entrypoint, operational dashboard, four-layer durable memory, size discipline, supersede-don't-delete history, auto-checkpoint cadence hook, and the /bootstrap + /save-status commands. Survives context resets and /clear."
+    },
+    {
+      "name": "review-discipline",
+      "source": "./review-discipline",
+      "version": "0.1.0",
+      "description": "Structured reviewer-pass disciplines for code, specs, and test fixtures: review-code, review-spec, review-fixtures. Apply a fixed verification taxonomy as an executable contract, emit findings keyed to named rows/checks with severity and a verdict."
+    },
+    {
+      "name": "eval-as-code-governance",
+      "source": "./eval-as-code-governance",
+      "version": "0.1.0",
+      "description": "Govern a retrieval / ML eval suite as first-class code: decouple gold from the corpus surface, the L1-L8 design checklist, the failure->action loop, four coverage detectors, looseness-symmetry guardrails, and the two-lane rule."
+    }
+  ]
+}

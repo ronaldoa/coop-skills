@@ -1,0 +1,9 @@
+{
+  "name": "review-discipline",
+  "description": "Structured reviewer-pass disciplines for code, specs, and test fixtures: apply a fixed verification taxonomy as an executable contract (run before you conclude), and emit findings keyed to named rows/checks with severity and a verdict. Three skills: review-code (code-vs-architecture/contract), review-spec (prose-vs-code fidelity), and review-fixtures (fixture-data-vs-declared-testing-intent).",
+  "version": "0.1.0",
+  "author": {
+    "name": "ronaldoa"
+  },
+  "license": "MIT"
+}
