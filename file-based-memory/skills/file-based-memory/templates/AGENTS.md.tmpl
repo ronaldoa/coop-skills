@@ -5,6 +5,29 @@ CLI, Cursor, etc.). Tool-specific overlays live in their own files (e.g. `CLAUDE
 for Claude Code). This file **routes**; it does not store truth — truth lives in the
 code, `docs/`, and `project-memory/`.
 
+## Standing rules
+
+<!-- Loaded every session, so only rules the agent would NOT apply on its own: silent traps,
+     and project rules that contradict a default. A rule the agent would follow anyway, or one
+     tied to a task it can recognise (a runbook, a format), does not belong here — that is a
+     skill. Each line: the rule, then (date / source). Delete lines that don't apply. -->
+
+- **Parallel sessions share this worktree and its git index.** Commit with an explicit path
+  list (`git commit -F - -- <files…>`), never `git add` + `git commit` or `git add -A`; a
+  clean `git status` describes one second and is never a reason to relax this.
+- **Stop only processes you started** (by PID or task id) — never `pkill -f` / pattern-kill
+  a name other sessions also run.
+- **"Green" includes "skipped" and "0 tests ran".** Read the count that ran before calling
+  anything verified.
+- **A recommendation is not a ruling.** Record the user's decisions verbatim and dated, and
+  report the rung you hold: proposed → recommended → ruled → landed → verified.
+- **Known debt lives in one register** (`docs/DEBT_REGISTER.md`) with stable ids; plans
+  carry a pointer, never a copy.
+- **Scripts that call paid APIs cost money**: report the call count and wait for approval
+  before running one.
+- <!-- project rules that contradict a default, e.g.
+     "**Commit messages carry no AI attribution trailer.** (User ruling YYYY-MM-DD.)" -->
+
 ## Project Overview
 
 <!-- TODO: 2–4 sentences. What is this system, in plain terms? -->

@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 #
 # PreToolUse(Bash) hook: when the agent is about to run `git commit` or `git push`,
-# run the doc-budget gate first and block the command (exit 2) if it fails, so
-# oversized doc/memory entries never reach a commit. The checks live in
-# doc_budget_check.py.
+# run the doc-budget gate and the doc gates first and block the command (exit 2)
+# if either fails. The checks live in doc_budget_check.py and doc_gates.py.
 #
-# Honors DOC_BUDGET_BYPASS=1 when set on the gated command itself, e.g.
-#   DOC_BUDGET_BYPASS=1 git commit -m "deliberate oversize: <why>"
+# Honors DOC_BUDGET_BYPASS=1 / DOC_GATES_BYPASS=1 when set on the gated command
+# itself, e.g.  DOC_BUDGET_BYPASS=1 git commit -m "deliberate oversize: <why>"
 
 set -uo pipefail
 
@@ -26,10 +25,16 @@ case "$cmd" in
   *) exit 0 ;;                        # everything else: allow immediately
 esac
 
-# Respect an explicit bypass declared on the gated command itself.
-case "$cmd" in
-  *"DOC_BUDGET_BYPASS=1"*) exit 0 ;;
-esac
+HOOKS="${CLAUDE_PLUGIN_ROOT:-$(dirname "$0")/..}/hooks"
+status=0
 
-ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
-exec python3 "${CLAUDE_PLUGIN_ROOT:-$(dirname "$0")/..}/hooks/doc_budget_check.py"
+# Each gate honours its own bypass, declared on the gated command itself.
+case "$cmd" in
+  *"DOC_BUDGET_BYPASS=1"*) ;;
+  *) python3 "$HOOKS/doc_budget_check.py" || status=$? ;;
+esac
+case "$cmd" in
+  *"DOC_GATES_BYPASS=1"*) ;;
+  *) python3 "$HOOKS/doc_gates.py" || status=$? ;;
+esac
+exit "$status"

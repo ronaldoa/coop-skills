@@ -1,0 +1,9 @@
+{
+  "name": "engineering-discipline",
+  "description": "Portable engineering discipline for agent-driven development: a verbatim principles ledger (mutation-tested gates, real end-to-end runs, LLM proposes / code adjudicates, honest measurement), field rules for parallel agent sessions and paid API calls, how to grow and cap your own principles file, a /promote-memory command, and a precommit ceiling gate.",
+  "version": "0.1.0",
+  "author": {
+    "name": "ronaldoa"
+  },
+  "license": "MIT"
+}

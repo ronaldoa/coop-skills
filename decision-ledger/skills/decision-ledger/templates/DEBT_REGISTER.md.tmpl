@@ -1,0 +1,39 @@
+# Debt register
+
+> STATUS: active · YYYY-MM-DD · the single home of every known defect and debt
+
+**Every known debt lives here and only here.** Plans carry a one-line pointer
+(`→ DEBT_REGISTER D-xx`), never the entry text.
+
+## Rules (don't break them)
+
+1. One entry per debt, here; elsewhere only pointers.
+2. Ids are never reused or renumbered; closed entries stay in place, marked ✅.
+   2b. Before allocating an id, check the current maximum — parallel sessions collide.
+   On collision the first commit keeps the id; the later renumbers and notes the original.
+3. Reclassifying (WONTFIX, NOTE) requires the reason — the reason is the value.
+
+## Status and priority
+
+`🔴 OPEN` · `🟡 OPEN` (low impact) · `⚪ NOTE` · `✅ CLOSED` · `🚫 WONTFIX` (with measurement).
+Priority = user-visible harm, not difficulty — wrong numbers returned silently outrank an empty result.
+
+<a id="debt-index"></a>
+
+| ID | One line | Status | Priority |
+|---|---|---|---|
+| <!-- [D-1](#d-1) --> | <!-- TODO --> | <!-- 🔴 OPEN --> | <!-- P1 --> |
+
+---
+
+<!-- Entry template — copy per debt. Index rows go ONLY in the table above.
+
+### D-1 — <one-line statement>
+
+🔴 OPEN · P1 · filed YYYY-MM-DD
+- Symptom (user-visible):
+- Reproduction / evidence:
+- Owner / where it gets fixed:
+- History:
+
+-->

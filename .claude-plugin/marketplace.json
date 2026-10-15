@@ -7,8 +7,8 @@
     {
       "name": "file-based-memory",
       "source": "./file-based-memory",
-      "version": "0.2.1",
-      "description": "Persistent, resumable file-based memory: routed entrypoint, operational dashboard, four-layer durable memory, size discipline, supersede-don't-delete history, auto-checkpoint cadence hook, and the /bootstrap + /save-status commands. Survives context resets and /clear."
+      "version": "0.3.0",
+      "description": "Persistent, resumable file-based memory: routed entrypoint, operational dashboard, four-layer durable memory, size discipline, supersede-don't-delete history, multi-workline mode (per-line handoff blocks, router rows), a status-stamped doc index with path#symbol pointers, precommit doc gates, auto-checkpoint cadence hook, and the /bootstrap + /save-status commands. Survives context resets and /clear."
     },
     {
       "name": "review-discipline",
@@ -21,6 +21,18 @@
       "source": "./eval-as-code-governance",
       "version": "0.1.0",
       "description": "Govern a retrieval / ML eval suite as first-class code: decouple gold from the corpus surface, the L1-L8 design checklist, the failure->action loop, four coverage detectors, looseness-symmetry guardrails, and the two-lane rule."
+    },
+    {
+      "name": "decision-ledger",
+      "source": "./decision-ledger",
+      "version": "0.1.0",
+      "description": "Who decided what, on disk: user rulings recorded verbatim and dated apart from agent recommendations, an honest status ladder (proposed → recommended → ruled → landed → verified), open-question register with carried holes, and one debt register with stable ids. /ruling and /debt commands plus a precommit ledger gate."
+    },
+    {
+      "name": "engineering-discipline",
+      "source": "./engineering-discipline",
+      "version": "0.1.0",
+      "description": "Portable engineering discipline for agent-driven development: a verbatim principles ledger, field rules for parallel agent sessions and paid API calls, how to grow and cap your own principles file, /promote-memory, and a precommit ceiling gate."
     }
   ]
 }

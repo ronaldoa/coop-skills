@@ -1,18 +1,21 @@
 # Coop Skills
 
-A local Claude Code **plugin marketplace** (`coop-skills`) holding three discipline
-plugins distilled from the `equityResearchAgent` project into reusable, repo-agnostic
-kits.
+A local Claude Code **plugin marketplace** (`coop-skills`) holding five discipline
+plugins distilled from the `equityResearchAgent` and `EquityResearch` projects into
+reusable, repo-agnostic kits.
 
 | Plugin | Skills | Commands | What it gives you |
 |---|---|---|---|
 | **file-based-memory** | `file-based-memory` | `/file-based-memory:bootstrap` · `/file-based-memory:save-status` | Persistent, resumable memory: routed `AGENTS.md` entrypoint, an operational dashboard, a four-layer durable `project-memory/`, size discipline, supersede-don't-delete history, and an auto-checkpoint cadence hook. Survives `/clear` and context resets. `bootstrap` installs the scaffold; `save-status` checkpoints each session. |
 | **review-discipline** | `review-code` · `review-spec` · `review-fixtures` | — (invoke the skills) | Structured reviewer-passes: apply a fixed verification taxonomy as an *executable contract* (re-run the producer, don't trust the artifact) and emit findings keyed to named rows/checks with severity + a verdict. review-code = code-vs-architecture/contract; review-spec = prose-vs-code; review-fixtures = fixture-data-vs-declared-intent. |
+| **decision-ledger** | `decision-ledger` | `/decision-ledger:ruling` · `/decision-ledger:debt` | Who decided what: user rulings quoted verbatim and dated, kept apart from agent recommendations; the status ladder proposed → recommended → ruled → landed → verified; an open-question register with carried holes; one debt register with stable ids and a collision protocol; a precommit ledger gate. |
+| **engineering-discipline** | `engineering-discipline` | `/engineering-discipline:promote-memory` | The rules themselves: a verbatim principles ledger (mutation-tested gates, real e2e runs, LLM proposes / code adjudicates, honest measurement), field rules for parallel agent sessions and paid calls, how to grow and cap your own principles file, and a precommit ceiling gate. |
 | **eval-as-code-governance** | `eval-as-code-governance` | — (invoke the skill) | Govern a retrieval / ML eval suite as code: decouple gold from the corpus surface (predicate over stable semantic keys, not doc-ID + rank), the L1–L8 design checklist, the deterministic failure→action loop, four coverage detectors, the looseness-symmetry guardrails, and the two-lane rule. |
 
-The three are layered: `review-fixtures` keeps one fixture file's intent matching its
-data; `eval-as-code-governance` governs the whole suite above it; all three reviewer-
-passes sit on top of the `file-based-memory` substrate.
+The reviewer passes are layered: `review-fixtures` keeps one fixture file's intent
+matching its data; `eval-as-code-governance` governs the whole suite above it. All of them
+sit on the `file-based-memory` substrate (where state lives); `decision-ledger` records who
+decided what inside it; `engineering-discipline` holds the rules every session follows.
 
 ---
 
@@ -32,12 +35,14 @@ In Claude Code, type the slash command (any project):
 
 ### 2. Install the plugins you want
 
-Three independent plugins — install only what you need:
+Five independent plugins — install only what you need:
 
 ```
 /plugin install review-discipline@coop-skills
 /plugin install file-based-memory@coop-skills
 /plugin install eval-as-code-governance@coop-skills
+/plugin install decision-ledger@coop-skills
+/plugin install engineering-discipline@coop-skills
 ```
 
 After install:
@@ -115,11 +120,24 @@ Skills/
 ├─ file-based-memory/
 │  ├─ .claude-plugin/plugin.json
 │  ├─ commands/save-status.md
-│  ├─ hooks/{hooks.json, *.sh, doc_budget_check.py}
+│  ├─ hooks/{hooks.json, *.sh, doc_budget_check.py, doc_gates.py}
+│  ├─ tests/
 │  └─ skills/file-based-memory/{SKILL.md, references/, templates/}
 ├─ review-discipline/
 │  ├─ .claude-plugin/plugin.json
 │  └─ skills/{review-code,review-spec,review-fixtures}/{SKILL.md, references/}
+├─ decision-ledger/
+│  ├─ .claude-plugin/plugin.json
+│  ├─ commands/{ruling.md, debt.md}
+│  ├─ hooks/{hooks.json, ledger-precommit.sh, ledger_check.py}
+│  ├─ skills/decision-ledger/{SKILL.md, references/, templates/}
+│  └─ tests/
+├─ engineering-discipline/
+│  ├─ .claude-plugin/plugin.json
+│  ├─ commands/promote-memory.md
+│  ├─ hooks/{hooks.json, ceiling-precommit.sh, ceiling_check.py}
+│  ├─ skills/engineering-discipline/{SKILL.md, references/, templates/}
+│  └─ tests/
 └─ eval-as-code-governance/
    ├─ .claude-plugin/plugin.json
    └─ skills/eval-as-code-governance/{SKILL.md, references/}

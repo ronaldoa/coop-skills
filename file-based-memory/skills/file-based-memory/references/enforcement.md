@@ -1,54 +1,40 @@
-# Optional enforcement: the doc-budget gate
+# The precommit gates
 
-Advisory rules ("keep entries 5–10 lines") get skipped under context pressure —
-the same reason type-checks belong in a hook, not a README. For deterministic size
-discipline, this plugin ships an optional **precommit gate**.
+Advisory size and format rules get skipped under context pressure; these run before every
+agent-issued `git commit` / `git push` (`PreToolUse(Bash)` → `hooks/doc-budget-precommit.sh`)
+and block with exit 2. They do **not** run on human commits — for those, wire the same
+scripts into a git hook (and remember `core.hooksPath` is not present on a fresh clone,
+[doc-index.md](doc-index.md) §6).
 
-## What it does
+## Doc-budget gate — `hooks/doc_budget_check.py`
 
-`hooks/doc_budget_check.py` blocks a `git commit`/`git push` (exit 2) when a tracked
-memory/router file violates its size discipline. It is wired through
-`hooks/doc-budget-precommit.sh`, a `PreToolUse(Bash)` hook that runs the check only
-when the about-to-run command is a commit/push.
+- **Per-entry caps** on `project-memory/*` `## ` entries (`## [FOLDED]` entries get the
+  larger folded cap).
+- **Router line cap** on `AGENTS.md` — one route = one line.
+- **Whole-file budgets** — catch creep per-entry checks miss.
 
-It encodes the written rules mechanically:
+Delta-scoped so legacy debt never blocks: only files that differ from `HEAD`; within memory
+files only new or modified entries; in `AGENTS.md` only added lines. Tune `FILE_BUDGETS`,
+`LINE_CAPS`, `ENTRY_CAPS` at the top of the script. Bypass: `DOC_BUDGET_BYPASS=1` on the
+command, with the reason in the message.
 
-- **Per-entry caps** on `project-memory/*` — 5–10 lines / a char ceiling per `## `
-  entry, so an entry can't grow into a re-statement of a spec. A `## [FOLDED]`
-  entry indexes over a closed cluster, so it gets the larger folded cap — see
-  [supersede-trail.md](supersede-trail.md#folding-a-closed-cluster-folded).
-- **Router line cap** on `AGENTS.md` — one route = one line (trigger → destination +
-  status), so the index can't absorb narrative.
-- **Whole-file budgets** — catch slow creep that per-entry checks miss.
+## Doc gates — `hooks/doc_gates.py`
 
-## Delta semantics (anti false-positive-fatigue)
+On changed docs under `DOC_GATES_DIRS` (default `docs`):
 
-The gate is **delta-scoped**, so it never blocks you for pre-existing debt:
+| Gate | Checks | Why |
+|---|---|---|
+| G1 | `> STATUS: <status> · <date> · <line>` in the first 20 lines, status in `DOC_GATES_STATUSES` (empty = any) | the index is derived from stamps |
+| G2 | ≤ 1 live heading containing `DOC_GATES_ENTRY_MARKER` (default `START HERE`) not marked `[SUPERSEDED` | one plan once had five "start here" markers |
+| G3 | every `` `path#symbol` `` resolves: among repo files ending with `path`, exactly one contains the symbol | dead / ambiguous pointers go red |
+| G4 | no newly added `file.ext:NN` pointer | line numbers drift silently |
 
-- A file is examined only when its worktree content differs from `HEAD`.
-- Within memory files, only **new or modified** `## ` entries are gated — legacy
-  oversize entries don't block until someone touches them (fix-when-you-touch).
-- For `AGENTS.md`, only added/rewritten lines are width-checked.
+`DOC_GATES_EXEMPT` defaults to `INDEX.md,README.md`. `python3 hooks/doc_gates.py --all`
+audits every doc once when adopting — expect unstamped docs; fix them when touched. Bypass:
+`DOC_GATES_BYPASS=1`. Criteria: `tests/test_doc_gates.py` — each gate has a clean and a
+broken case, each mutation-checked to go red on its own arm.
 
-## Bypass (audited, deliberate)
+## Dropping a gate
 
-When an oversize is genuinely intended and reviewed:
-
-```bash
-DOC_BUDGET_BYPASS=1 git commit -m "deliberate oversize: <why>"
-```
-
-Set it on the gated command itself and say why in the commit message, so the
-exception is visible in history.
-
-## Tuning
-
-Edit the `FILE_BUDGETS`, `LINE_CAPS`, and `ENTRY_CAPS` dicts at the top of
-`hooks/doc_budget_check.py` to fit your repo. The shipped defaults are a sane
-starting point, not law.
-
-## If you don't want it
-
-The gate is optional. To drop it, remove the `PreToolUse` block from
-`hooks/hooks.json` (or delete the two `doc*` files). The cadence `Stop` hook and the
-rest of the kit work without it.
+Remove the matching line from `hooks/doc-budget-precommit.sh`, or the whole `PreToolUse`
+block from `hooks/hooks.json`. The cadence hook works without them.

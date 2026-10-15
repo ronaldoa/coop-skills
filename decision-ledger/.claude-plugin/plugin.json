@@ -1,0 +1,9 @@
+{
+  "name": "decision-ledger",
+  "description": "Keep the user's rulings (verbatim, dated, with what they overturn) apart from the agent's recommendations, track open questions and carried holes, report work on an honest status ladder (proposed → recommended → ruled → landed → verified), and keep all known debt in one register with stable ids. Ships /ruling and /debt commands and a precommit ledger gate.",
+  "version": "0.1.0",
+  "author": {
+    "name": "ronaldoa"
+  },
+  "license": "MIT"
+}

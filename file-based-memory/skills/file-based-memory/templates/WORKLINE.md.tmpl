@@ -1,0 +1,52 @@
+# <Line name>: <one-line purpose>
+
+> STATUS: in-flight · YYYY-MM-DD · <one sentence: what this line delivers and where it stands>
+
+> Origin (YYYY-MM-DD, user's words): "<quote the request that started this line>"
+
+---
+
+## 0. Session handoff — START HERE
+
+<!-- The ONLY live entry marker in this doc. When you write a new handoff, rewrite 0.0
+     in place; do not add a second "start here" anywhere. Two screens maximum. -->
+
+### 0.0 Handoff block (YYYY-MM-DD close)
+
+- **HEAD**: `git log --oneline -1 -- docs/<THIS_FILE>.md` · line commits: `git log --oneline --grep='<LINE-ID>'`
+- **Baseline**: `<test command>` → `<N passed>` (YYYY-MM-DD) · type-check `<0 errors>` · cost of this line so far: <zero LLM / N calls / DB writes>
+- **Files of this line**: <doc/section → concern, one line each>
+- **Progress**: <slice list with honest rungs: proposed / recommended / ruled / landed / verified>
+- **Next step**: <one concrete action> — touches `<path#symbol>`; read §<x> first. <Report scope/cost to the user before starting?>
+- **Carried holes**:
+
+  | Hole | Affected cases | Current exit (what happens today) | Decided by / when |
+  |---|---|---|---|
+  | <!-- TODO --> | | | |
+
+- **Out of this line** (owned elsewhere): <pointer>
+- 🛑 **Do not**:
+  - <mistake this line already paid for> — <why, one clause>
+
+### 0.1 Rulings a resumer must not re-argue
+
+<!-- ⚖️ user YYYY-MM-DD "<verbatim quote>" → what it decides; what it overturned. -->
+
+---
+
+## 1. Scope and ownership
+
+<!-- What this line owns, what its neighbours own, and the exit for inputs that fit
+     neither ("out of scope" / "in scope but not representable"). -->
+
+## 2. Design
+
+## 3. Slices
+
+| Slice | User-visible flow it completes | Done when (real end-to-end run) | Status |
+|---|---|---|---|
+
+## 4. Open questions
+
+<!-- ### Q1 [OPEN] <question> — options (a)/(b), recommendation, what each costs.
+     When ruled: ### Q1 [RULED YYYY-MM-DD] … ⚖️ "<quote>". Never delete a ruled entry. -->

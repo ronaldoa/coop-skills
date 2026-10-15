@@ -1,7 +1,7 @@
 {
   "name": "file-based-memory",
-  "description": "Persistent, resumable file-based memory for agentic coding: a routed entrypoint, an operational dashboard, a four-layer durable memory, size discipline, supersede-don't-delete history, an auto-checkpoint cadence hook, and the /bootstrap + /save-status commands. Survives context resets and /clear.",
-  "version": "0.2.1",
+  "description": "Persistent, resumable file-based memory: routed entrypoint, operational dashboard, four-layer durable memory, size discipline, supersede-don't-delete history, multi-workline mode (per-line handoff blocks, router rows), a status-stamped doc index with path#symbol pointers, precommit doc gates, auto-checkpoint cadence hook, and the /bootstrap + /save-status commands. Survives context resets and /clear.",
+  "version": "0.3.0",
   "author": {
     "name": "ronaldoa"
   },

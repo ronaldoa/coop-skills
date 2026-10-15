@@ -12,6 +12,8 @@ It generalizes a battle-tested in-repo mechanism into a repo-agnostic kit:
 - **Size discipline** — 5–10 lines per entry, link to docs instead of compressing them (optional precommit gate).
 - **Supersede, don't delete** — wrong/old entries keep a trail.
 - **Auto-checkpoint cadence** — a non-blocking `Stop` hook nudges you to checkpoint when commits pile up.
+- **Multi-workline mode** — several parallel lines of work each own a `§0` handoff block in their design doc; the dashboard becomes a router of lines.
+- **Doc index + gates** — `> STATUS:` stamps, `path#symbol` pointers instead of line numbers, one live entry point per doc, checked by `hooks/doc_gates.py` before agent commits (criteria: `tests/test_doc_gates.py`).
 
 ## Install / try
 
